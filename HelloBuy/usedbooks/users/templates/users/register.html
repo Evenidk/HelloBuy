@@ -1,0 +1,121 @@
+{% load crispy_forms_tags %}
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap CSS -->
+   <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+   <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Faster+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static './bookstore/base.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bookstore/landingpage.css'%}">
+    <script type="text/javascript" src="{% static './bookstore/toggled-search-bar.js' %}"></script>
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>UsedBooks</title>
+    {% endif %}
+
+    <script type="text/javascript">
+        document.getElementById("id_q").value = "{{ query }}";
+        document.getElementById("searchin").value = "{{ query }}";
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-md  fixed-top">
+            <a href="{% url 'bookstore-home' %}" class="navbar-brand"
+            ><img src="../../media/logo.png" alt="" id="mainlogo"></a>
+            <button
+                    type="button"
+                    class="navbar-toggler"
+                    data-toggle="collapse"
+                    data-target="#navbarCollapse"
+            >
+          <span class="navbar-toggler-icon"><img
+                  id="hamburger"
+                  src="https://img.icons8.com/officel/16/000000/menu.png"
+          /></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse" style="float: right;">
+                <div class="navbar-nav ml-auto">
+
+
+                    <a href="{% url 'bookstore-buy' %}" class="nav-item nav-link navs">BUY</a>
+                    <a href="{% url 'bookstore-sell' %}" class="nav-item nav-link navs">SELL</a>
+                    <div style="border-right: 1px solid; padding-right: 40px; border-color: rgb(161, 161, 161);">
+                        <a href="{% url 'note_list' %}" class="nav-item nav-link navs" >NOTES</a>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="added-block" class="signupform">
+			<div class="container mt-5 right-panel-active" id="container_l_s">
+				<div class="form-container sign-up-container" id="login_signup">
+					<form method="POST" class="m-0">
+						<h1 class="mb-4">Sign Up</h1>
+						{% csrf_token %}
+						<div>
+                            <h6><strong>Username*</strong></h6> 
+                            {{formUser.username}} <br>
+                        </div>
+                        <div>
+                            <h6><strong>Email*</strong></h6> 
+                            {{formUser.email}} <br>
+                        </div>
+                        <div>
+                            <h6><strong>Password*</strong></h6> 
+                            {{formUser.password1}} <br>
+                            {{formUser.password1.errors}} <br>
+                        </div>
+                        <div>
+                            <h6><strong>Password Confirmation*</strong></h6> 
+                            {{formUser.password2}}
+                            {{formUser.password2.errors}}
+                        </div>
+                        <div class="mb-0">
+                            <h6><strong>College*</strong></h6> 
+                            {{formCollege.college}} <br>
+                        </div>
+                        <br>
+						<button type="submit" class="btn btn-dark px-4 mt-0" id="form_submit">Sign Up</button>
+					</form>
+				</div>
+				<div class="overlay-container" id="login_signup">
+					<div class="overlay">
+						<div class="overlay-panel overlay-left">
+							<h1>Welcome Back!</h1>
+							<p>
+								To keep connected with us please login with your personal info
+							</p>
+							<a href="{% url 'login' %}"><button class="ghost" id="signIn">Sign In</button></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+
+	</html>
+

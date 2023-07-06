@@ -1,0 +1,98 @@
+{% load static %}                                 
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="jquery-1.12.0.min.js"></script>
+    <!-- Bootstrap CSS -->
+   <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+   <link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Faster+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static './bookstore/base.css'%}">
+
+    <script type="text/javascript" src="{% static './bookstore/toggled-search-bar.js' %}"></script>
+    {% if title %}
+    <title>{{ title }}</title>
+    {% else %}
+    <title>UsedBooks</title>
+    {% endif %}
+
+    <script type="text/javascript">
+        document.getElementById("id_q").value = "{{ query }}";
+        document.getElementById("searchin").value = "{{ query }}";
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-md  fixed-top">
+            <a href="{% url 'bookstore-home' %}" class="navbar-brand"
+            ><img src="../../media/logo.png" alt="" id="mainlogo"></a>
+            <button
+                    type="button"
+                    class="navbar-toggler"
+                    data-toggle="collapse"
+                    data-target="#navbarCollapse"
+            >
+          <span class="navbar-toggler-icon"><img
+                  id="hamburger"
+                  src="https://img.icons8.com/officel/16/000000/menu.png"
+          /></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse" style="float: right;">
+                <div class="navbar-nav ml-auto">
+                    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink1" data-toggle="dropdown" aria-haspopup="true"
+                          aria-expanded="false"><i class="fa fa-search"></i></a>
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink1" style="padding-left: 10px; padding-right: 10px;">
+                            <form method="get">
+                                <select id="searchin" name="searchin">
+                                    <option value="books">Search in Books</option>
+                                    <option value="notes">Search in Notes</option>
+                                </select>
+                                <input type="text" name="q" id="id_q" placeholder="Search.." style="width: 400px;">
+                            </form>
+                        </div>
+                    </li>
+                    
+                    <a href="{% url 'bookstore-buy' %}" class="nav-item nav-link navs">BUY</a>
+                    <a href="{% url 'bookstore-sell' %}" class="nav-item nav-link navs">SELL</a>
+                    <div style="border-right: 1px solid; padding-right: 40px; border-color: rgb(161, 161, 161);">
+                        <a href="{% url 'note_list' %}" class="nav-item nav-link navs" >NOTES</a>
+                    </div>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'profile' %}" class="nav-item nav-link navs" >PROFILE</a>
+                        <a href="{% url 'logout' %}" class="nav-item nav-link navs" style="padding-right: 40px;">SIGN OUT</a>
+	                {% else %}
+                        <a href="{% url 'login' %}" class="nav-item nav-link navs" >SIGN IN</a>
+                        <a href="{% url 'register' %}" class="nav-item nav-link navs" style="padding-right: 40px;">SIGN UP</a>
+	                {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div id="added-block">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+</body>
+
+</html>
